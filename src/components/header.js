@@ -20,21 +20,30 @@ const HeaderImg = styled.div`
     transform: translate(-50%, -50%)
 `
 
+const BigSpan = styled.span`
+    font-size: 5.5em;
+`
+
+const NormalSpan = styled.span`
+    font-size: 1.2em;
+`
+
+const SmallSpan = styled.span`
+    font-size: 1em;
+`
 
 export default () => {
     return(
         <header>
             <Menus />
             <div className="header-box">
-                <Img src="/img/header-img.png" alt="header-img" className="header-img"/>
+                <Img src="/img/header-img.png" alt="header-img"/>
                 <HeaderImg>
-                    <span>Ryan Willpower</span>
+                    <BigSpan>Ryan Willpower</BigSpan>
                     <br />
-                    <span>Web developer</span>
+                    <SmallSpan>some kind of developer</SmallSpan>
                     <br />
-                    <span>
-                        The student at somewhere university who love programming so much.
-                    </span>
+                    <NormalSpan>The student at Mahanakorn University of Technology who love programming so much.</NormalSpan>
                 </HeaderImg>
             </div>
         </header>

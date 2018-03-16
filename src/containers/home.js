@@ -1,46 +1,96 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { REQUEST_POST } from '../actions/fetch'
+import { requestPost } from '../actions'
 
 import { Container } from 'reactstrap'
 import styled from 'styled-components'
-
-import Card from '../components/card'
-
-const Main = styled(Container)`
-    margin-top: 40px;
-`
+import Particles from 'react-particles-js'
 
 class Home extends Component {
-    componentWillMount() {
-        axios.get('https://www.willpower.in.th/posts').then(post => {
-            console.log(post.data)
-        })
-        this.props.action(REQUEST_POST)
-        console.log(this.props.post)
-    }
+		componentDidMount() {
+				this.props.requestPost()
+		}
 
-    render() {
-        return(
-            <Main>
-                <Card />
-            </Main>
-        )
-    }
+		render() {
+				if (!this.props.post) {
+						return <h1>loading...</h1>
+				} else {
+					return(
+						<Particles params={{
+							particles: {
+								number: {
+									value: 60,
+									// density: {
+									// 	enable: true,
+									// 	value_area: 800
+									// }
+								},
+								color: {
+									value: "#123456"
+								},
+								shape: {
+									type: "circle",
+									stroke: {
+										width: 0,
+										color: "#123456"
+									},
+									polygon: {
+										nb_sides: 5
+									}
+								},
+								opacity: {
+									value: 0.5,
+									random: false,
+									anim: {
+										enable: false,
+										speed: 1,
+										opacity_min: 0.1,
+										sync: false
+									}
+								},
+								size: {
+									value: 3,
+									random: true,
+									anim: {
+										enable: false,
+										speed: 40,
+										size_min: 0.1,
+										sync: false
+									}
+								},
+								line_linked: {
+									enable: true,
+									distance: 150,
+									color: "#555555",
+									opacity: 0.4,
+									width: 1
+								},
+								move: {
+									enable: true,
+									speed: 6,
+									direction: "none",
+									random: false,
+									straight: false,
+									out_mode: "out",
+									bounce: false,
+									attract: {
+										enable: false,
+										rotateX: 600,
+										rotateY: 1200
+									}
+								}
+							},
+							retina_detect: true
+						}} />
+					)
+				}
+		}
 }
 
 const mapStateToProps = (state) => {
-    return({
-        post: state.fetch
-    })
+		return({
+				post: state.post
+		})
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return({
-        requestPost: () => dispatch({type: REQUEST_POST})
-    })
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, { requestPost })(Home)

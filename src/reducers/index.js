@@ -1,8 +1,25 @@
 import { combineReducers } from 'redux'
-import {fetch} from './reducer_fetch'
+import { SUCCESS, FAIL } from '../sagas'
+
+const initialState = null
+
+export function post(state = initialState, action) {
+    switch (action.type) {
+        case SUCCESS:
+            return Object.assign({}, state, {
+                ...action.posts
+            })
+        case FAIL:
+            return Object.assign({}, state, {
+                error: action.error
+            })
+        default:
+            return state
+    }
+}
 
 const rootReducer = combineReducers({
-    fetch
+    post
 })
 
 export default rootReducer

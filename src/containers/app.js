@@ -4,30 +4,23 @@ import { Provider } from 'react-redux'
 
 import Home from './home'
 
-import Header from '../components/header'
-import About from '../components/about'
-
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware } from 'redux'
 
-import rootReducer from '../reducers'
-import rootSaga from '../actions/fetch'
+import reducer from '../reducers'
+import watchFetch from '../sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 
-sagaMiddleware.run(rootSaga)
-
-const action = type => store.dispatch({type})
+sagaMiddleware.run(watchFetch)
 
 const route = () => (
     <Provider store={store}>
         <Router>
             <div>
-                <Header />
-                <Route exact path="/" render={() => <Home action={action} />}/>
-                <Route exact path="/about" component={About} />
+                <Route exact path="/" component={Home} />
             </div>
         </Router>
     </Provider>

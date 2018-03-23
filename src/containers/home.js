@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { requestPost } from '../actions'
 import { Link } from 'react-router-dom'
 
-import { Container } from 'reactstrap'
 import styled from 'styled-components'
 import Particles from 'react-particles-js'
 import param from '../Particles'
+import '../css/index.css'
 
 const Load = styled.h1`
 	margin: 20px;
@@ -23,6 +23,7 @@ const Particled = styled(Particles)`
 	background: #3F3F3F;
 `
 const Main = styled.div`
+	font-family: 'Quicksand', sans-serif;
 	color: #000;
 	width: 80%;
 	height: 80%;
@@ -50,12 +51,15 @@ const StyledLink = styled(Link)`
 	text-decoration: none;
 	color: black;
 	font-size: 2vw;
+	&:hover {
+		text-decoration: none;
+		color: gray;
+	}
 `
 
 const Warp = StyledLink.extend`
 	margin-right: 20%;
 `
-
 
 class Home extends Component {
 		componentDidMount() {
@@ -69,7 +73,7 @@ class Home extends Component {
 				return(
 					<div>
 						<Particled params={param} />
-						<Main>
+						<Main className='hover'>
 							<Header>&#123; Ryan Willpower &#125;.js</Header>
 							<Desc>" The Fullstack Developer "</Desc>
 							<Warp to="about">About me</Warp>
